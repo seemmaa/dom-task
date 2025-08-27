@@ -17,12 +17,25 @@ for (var i = 0; i < childs.length; i++) {
 }
 console.log("text node:", childs[0].nodeName, childs[0].nodeType); // #text 3
 var p = document.querySelector("p");
+
 var sibling = p.nextElementSibling; 
 console.log("next sibling element:", p.tagName); //first paragraph is sibling of the second paragraph
+console.log("next sibling element:", sibling.tagName); //second paragraph is sibling of the div
+//without querySelector
+const section = document.body.children[1].children[0]; 
+const firstParagraph = section.firstElementChild;
+const secondParagraph = firstParagraph.nextElementSibling;
+console.log("First paragraph tag:", firstParagraph.tagName);
+console.log("Second paragraph tag:", secondParagraph.tagName);
+console.log("Are they siblings?", firstParagraph.nextElementSibling === secondParagraph);
 
 //the origin of this text node (unexpected nodes) is the whitespace between elements in the HTML structure
 //there is text nodes with node type 3
-
+document.body.childNodes.forEach((node, i) => {
+  if (node.nodeType === 3) {
+    console.log("Unexpected text node at index", i, ":", JSON.stringify(node.nodeValue));//whitespace
+  }
+});
 
 
 
@@ -36,7 +49,7 @@ console.log("next sibling element:", p.tagName); //first paragraph is sibling of
 
 const newDiv = document.createElement("div");
 newDiv.className = "card";
-newDiv.role = "admin";;
+newDiv.dataset.role = "admin";;
 const newHeading = document.createElement("h2");
 newHeading.textContent = "Access Panel";
 const newParagraph = document.createElement("p");
@@ -54,10 +67,3 @@ newDiv.classList.add("highlight"); //
 
 if(newDiv.classList.contains("card"))
     newDiv.classList.remove("card"); 
-
-
-
-
-
-
-
